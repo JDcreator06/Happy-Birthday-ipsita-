@@ -640,15 +640,14 @@
                 <p id="pesan3">Hey.. it's your birthday! &#10084;</p>
                 <p id="pesan4">Happy Birthday My dear bestie</p>
                 <p id="pesan5" class="gaya2">Getting older but u don't getting older always stay younger and glowing beautiful and also,getting cuter hehe😘🥰</p>
-                <p id="pesan6" class="gaya2">Wishing you a long life, stay healthy dear panda 🐼 &#10084;</p>
+                <p id="pesan6" class="gaya2">Wishing you a long life, stay healthy dear.&#10084;</p>
                 <p id="pesan7" class="gaya2">Hope your fortune keeps flowing, until you don't know how to spend it!</p>
 
                 <p id="pesan8" class="gaya2">Souuuuuuuu.....</p>
                 <p id="pesan9" class="gaya2">Hope you’re happy on your special day, you must be happy! I worked hard to
                     make this, I even learned how to do it! &#10084;</p>
                 <p id="pesan10" class="gaya2"> again 🎂🌸 happiest birthday my dear,a truly beautiful person 🎂🌸! Wishing you lots of love and happiness on your birthday as lovely as your heart and as bright as your smile. You deserve all the happiness, love, and success in the world. May your dreams come true, and may this year bring you countless beautiful moments. Stay amazing, stay you. ❤️✨";&#10084;</p>
-                <p id="pesan11" class="gaya2">Thank you for being my biggest support, caring about me, and always being
-                    there for me;</p>
+                
                 <!-- Tombol Lanjut -->
                 <p id="opsL">Click to Continue</p>
             </blockquote>
@@ -744,7 +743,80 @@ const Content = document.getElementById('Content');
         var tompositif = 'Yes';
         var tomnegatif = 'Yes Yes Yes &#10084;';
 
-        async function menuju() { startGiftSequence();
+        async function menuju() { Swal.fire({
+    title: 'Just Kidding 😂',
+    text: 'Hehehe',
+    confirmButtonText: 'Ye Lo Tumhara Gift 🎁'
+  }).then(() => {
+    showGiftBox();
+  });
+}
+
+function showGiftBox() {
+  // Hide old content
+  document.getElementById('Content').style.display = 'none';
+
+  // Show new Gift Box
+  document.body.innerHTML += `
+    <div id="giftScreen" style="text-align:center; padding:20px; color:white;">
+      <h2>🎁 Click Here Gift Ipsita 🎁</h2>
+      <img id="giftBoxImage" src="./assets/giftbox.png" style="width:150px;cursor:pointer;">
+    </div>
+  `;
+
+  document.getElementById('giftBoxImage').onclick = openIpsitaGift;
+}
+
+function openIpsitaGift() {
+  // Clear gift screen
+  document.getElementById('giftScreen').innerHTML = '';
+
+  // Add Ipsita photo with crackers & balloons animation
+  document.getElementById('giftScreen').innerHTML = `
+    <h2 style="color:white;">🎉 Surprise for You! 🎉</h2>
+    <img src="./assets/ipsita.jpg" style="width:80%;max-width:300px;border:5px solid #fff;border-radius:10px;">
+    <div id="balloons" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
+  `;
+
+  startBalloons();
+  startCrackers();
+}
+
+function startBalloons() {
+  const balloonsContainer = document.getElementById('balloons');
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i > 20) {
+      clearInterval(interval);
+      return;
+    }
+    const balloon = document.createElement('div');
+    balloon.innerHTML = '🎈';
+    balloon.style.position = 'absolute';
+    balloon.style.fontSize = '30px';
+    balloon.style.left = Math.random() * 90 + 'vw';
+    balloon.style.top = '100vh';
+    balloon.style.transition = 'top 5s ease-out';
+    balloonsContainer.appendChild(balloon);
+    setTimeout(() => {
+      balloon.style.top = '-10vh';
+    }, 100);
+    i++;
+  }, 300);
+}
+
+function startCrackers() {
+  for(let i=0;i<30;i++) {
+    const cracker = document.createElement('div');
+    cracker.innerHTML = '✨';
+    cracker.style.position = 'absolute';
+    cracker.style.fontSize = '20px';
+    cracker.style.left = Math.random() * 100 + 'vw';
+    cracker.style.top = Math.random() * 100 + 'vh';
+    cracker.style.opacity = Math.random();
+    document.getElementById('balloons').appendChild(cracker);
+  }
+}
         }
         function initengahan() {
             kadoIn.style = "display:none"; ket.style = "display:none";
