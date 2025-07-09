@@ -635,6 +635,16 @@
         <div id="pesanditolak">
             <img id="stikerditolak" src="./assets/weee.gif" />
             <p id="kataditolak">Just Kidding Heheheh 😂</p>
+            <div id="giftBox" style="display:none; text-align:center;">
+  <h2 style="color:white;">🎁 Click Here Gift Ipsita 🎁</h2>
+  <img src="./assets/giftbox.png" id="giftImg" style="width:150px;cursor:pointer;">
+</div>
+
+<div id="ipsitaPhoto" style="display:none; text-align:center;">
+  <h2 style="color:white;">🎉 Surprise for You! 🎉</h2>
+  <img src="./assets/ipsita.jpg" style="width:80%;max-width:300px;border:5px solid #fff;border-radius:10px;">
+  <div id="balloons" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
+</div>
         </div>
 
     </div>
@@ -713,10 +723,10 @@
         var tomnegatif = 'Yes Yes Yes &#10084;';
 
         async function menuju() { pesanwhatsapp = "Thank you for wishing " + nama + " a happy birthday ><"; await swals.fire('OK!', 'Please screen record this, sometimes my code has errors, I\'m still learning', 'success'); window.location = "https://api.whatsapp.com/send?phone=&text=" + pesanwhatsapp; }
-       extraGiftFlow();
+
         function initengahan() {
             kadoIn.style = "display:none"; ket.style = "display:none";
-          Content.style = "opacity:1;margin-top:0";
+            Content.style = "opacity:1;margin-top:0";
             bodyblur.style = "opacity:.7";
             wallpaper.style = "transform: scale(1.5);";
         }
@@ -882,66 +892,87 @@
                 await swalst.fire({ title: '' + kataditolak.innerHTML, timer: 2000, imageUrl: '' + stikerditolak.src, });
                 vketik8 = ""; aktipesan8();
             }
-        }async function extraGiftFlow() {
-  await Swal.fire('Just kidding 😂');
+        }
+        async function extraGiftFlow() {
+  await Swal.fire({
+    title: 'Do you want a gift 🎁?',
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    cancelButtonText: 'Yes Yes Yes ❤️'
+  });
+
+  await Swal.fire('Just Kidding 😂');
   await Swal.fire('Ye lo tumhara gift 🎁');
 
+  // Show Gift Box
   document.getElementById('giftBox').style.display = 'block';
-
-  document.getElementById('giftImg').onclick = function () {
-    document.getElementById('giftBox').style.display = 'none';
-    document.getElementById('ipsitaPhoto').style.display = 'block';
-    showCrackers();
-    showBalloons();
-
-    setTimeout(() => {
-      document.getElementById('ipsitaPhoto').style.display = 'none';
-      menujuAsli();  // ya tumhara jo bhi ending function ho
-    }, 6000);
-  };
 }
 
+// When Gift Box is clicked
+document.addEventListener('DOMContentLoaded', () => {
+  const giftImg = document.getElementById('giftImg');
+  if (giftImg) {
+    giftImg.onclick = () => {
+      document.getElementById('giftBox').style.display = 'none';
+      document.getElementById('ipsitaPhoto').style.display = 'block';
+      showCrackers();
+      showBalloons();
+
+      // Hide Ipsita photo after 6s (continue old flow)
+      setTimeout(() => {
+        document.getElementById('ipsitaPhoto').style.display = 'none';
+        menujuAsli();  // Call your original continue/end function here
+      }, 6000);
+    };
+  }
+});
+
 function showCrackers() {
-  for (let i = 0; i < 20; i++) {
+  const balloonsContainer = document.getElementById('balloons');
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i > 20) {
+      clearInterval(interval);
+      return;
+    }
     const cracker = document.createElement('div');
-    cracker.className = 'cracker';
     cracker.innerHTML = '✨';
+    cracker.style.position = 'absolute';
     cracker.style.fontSize = '20px';
     cracker.style.left = Math.random() * 100 + 'vw';
     cracker.style.top = Math.random() * 100 + 'vh';
     cracker.style.opacity = Math.random();
-    document.body.appendChild(cracker);
+    balloonsContainer.appendChild(cracker);
     setTimeout(() => cracker.remove(), 1000);
-  }
+    i++;
+  }, 100);
 }
 
 function showBalloons() {
-  for (let i = 0; i < 10; i++) {
-    let balloon = document.createElement('div');
-    balloon.className = 'balloon';
+  const balloonsContainer = document.getElementById('balloons');
+  let i = 0;
+  const interval = setInterval(() => {
+    if (i > 10) {
+      clearInterval(interval);
+      return;
+    }
+    const balloon = document.createElement('div');
     balloon.innerHTML = '🎈';
+    balloon.style.position = 'absolute';
     balloon.style.fontSize = '30px';
-    balloon.style.left = Math.random() * 100 + 'vw';
+    balloon.style.left = Math.random() * 90 + 'vw';
     balloon.style.top = '100vh';
     balloon.style.transition = 'top 5s ease-out';
-    document.body.appendChild(balloon);
+    balloonsContainer.appendChild(balloon);
     setTimeout(() => {
       balloon.style.top = '-10vh';
     }, 100);
     setTimeout(() => balloon.remove(), 6000);
-  }
-                  }
+    i++;
+  }, 300);
+}
     </script>
     <!-- Sampai Sini -->
-  <div id="giftBox" style="display:none; text-align:center;">
-  <img src="./assets/giftbox.png" id="giftImg" style="width:150px;cursor:pointer;" alt="Gift Box"/>
-  <p style="color:white;">Click here gift Ipsita 🎁</p>
-</div>
-
-<div id="ipsitaPhoto" style="display:none; text-align:center;">
-  <img src="./assets/ipsita.jpg" style="width:250px; border-radius:15px;">
-  <p style="color:white;">Happy Birthday Ipsita ❤️</p>
-</div>
 </body>
 
 </html>
