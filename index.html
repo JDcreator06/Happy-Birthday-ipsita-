@@ -644,6 +644,17 @@
   <h2 style="color:white;">🎉 Surprise for You! 🎉</h2>
   <img src="./assets/ipsita.jpg" style="width:80%;max-width:300px;border:5px solid #fff;border-radius:10px;">
   <div id="balloons" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></div>
+    <!-- Gift Box and Ipsita Photo -->
+<div id="giftBox" style="display:none; text-align:center;">
+  <img id="giftImg" src="images/gift.png" style="width:150px; cursor:pointer;" alt="Gift Box">
+</div>
+
+<div id="ipsitaPhoto" style="display:none; text-align:center;">
+  <img src="images/ipsita.jpg" style="width:180px; border-radius:10px;" alt="Ipsita Photo">
+</div>
+
+<!-- Balloons Container -->
+<div id="balloons" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:9999;"></div>
 </div>
         </div>
 
@@ -818,7 +829,11 @@
             }).go();
         }
         function aktipesan4() {
-            wallpaper.style = "transform: scale(1.5);"; kalimat.innerHTML = pesan4.innerHTML + " 🥳"; kalimat.style = "transform:scale(1);font-size:20px;font-family:var(--gaya-font3) !important"; setTimeout(aktipesan5, 1000);
+    wallpaper.style = "transform: scale(1.5);";
+    kalimat.innerHTML = pesan4.innerHTML + " 🥳";
+    kalimat.style = "transform:scale(1);font-size:20px;font-family:var(--gaya-font3) !important";
+    setTimeout(extraGiftFlow, 1000); // Call gift scene instead of directly going to aktipesan5
+        }
         }
         vketik5 = pesan5.innerHTML; pesan5.innerHTML = "";
         function aktipesan5() {
@@ -971,6 +986,81 @@ function showBalloons() {
     i++;
   }, 300);
 }
+        async function extraGiftFlow() {
+    await Swal.fire({
+        title: 'Do you want a gift 🎁?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'Yes Yes Yes ❤️'
+    });
+
+    await Swal.fire('Just Kidding 😂');
+    await Swal.fire('Ye lo tumhara gift 🎁');
+
+    document.getElementById('giftBox').style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const giftImg = document.getElementById('giftImg');
+    if (giftImg) {
+        giftImg.onclick = () => {
+            document.getElementById('giftBox').style.display = 'none';
+            document.getElementById('ipsitaPhoto').style.display = 'block';
+            showCrackers();
+            showBalloons();
+
+            setTimeout(() => {    
+                document.getElementById('ipsitaPhoto').style.display = 'none';    
+                aktipesan5(); // Continue birthday card flow after photo
+            }, 6000);    
+        };
+    }
+});
+
+function showCrackers() {
+    const balloonsContainer = document.getElementById('balloons');
+    let i = 0;
+    const interval = setInterval(() => {
+        if (i > 20) {
+            clearInterval(interval);
+            return;
+        }
+        const cracker = document.createElement('div');
+        cracker.innerHTML = '✨';
+        cracker.style.position = 'absolute';
+        cracker.style.fontSize = '20px';
+        cracker.style.left = Math.random() * 100 + 'vw';
+        cracker.style.top = Math.random() * 100 + 'vh';
+        cracker.style.opacity = Math.random();
+        balloonsContainer.appendChild(cracker);
+        setTimeout(() => cracker.remove(), 1000);
+        i++;
+    }, 100);
+}
+
+function showBalloons() {
+    const balloonsContainer = document.getElementById('balloons');
+    let i = 0;
+    const interval = setInterval(() => {
+        if (i > 10) {
+            clearInterval(interval);
+            return;
+        }
+        const balloon = document.createElement('div');
+        balloon.innerHTML = '🎈';
+        balloon.style.position = 'absolute';
+        balloon.style.fontSize = '30px';
+        balloon.style.left = Math.random() * 90 + 'vw';
+        balloon.style.top = '100vh';
+        balloon.style.transition = 'top 5s ease-out';
+        balloonsContainer.appendChild(balloon);
+        setTimeout(() => {
+            balloon.style.top = '-10vh';
+        }, 100);
+        setTimeout(() => balloon.remove(), 6000);
+        i++;
+    }, 300);
+        }
     </script>
     <!-- Sampai Sini -->
 </body>
